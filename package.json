@@ -5,15 +5,19 @@
   "scripts": {
     "dev": "next dev -H 0.0.0.0 -p 3000",
     "build": "next build",
-    "start": "next start -H 0.0.0.0 -p ${PORT:-3000}"
+    "start": "node scripts/bootstrap.mjs; next start -H 0.0.0.0 -p ${PORT:-3000}",
+    "import": "node scripts/import.mjs",
+    "invite": "node scripts/invite.mjs"
   },
   "dependencies": {
     "next": "^16.4.6",
+    "pg": "^8.23.1",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"
   },
   "devDependencies": {
     "@types/node": "^26.6.10",
+    "@types/pg": "^8.23.1",
     "@types/react": "^19.3.2",
     "@types/react-dom": "^19.3.0",
     "typescript": "^7.0.2"

@@ -21,3 +21,10 @@ Ask Claude for a change → Claude pushes to `main` → in Replit, pull the late
 - `app/page.tsx` — home page (coming soon + countdown)
 - `app/dashboard/` — private Mega Hub (password-protected by `proxy.ts`)
 - `app/api/health` — health check for monitoring
+
+## Client hub (noisystudio.com.au/clients)
+- Login: single-use invite links (no passwords). Admin creates people in **/admin** and copies their link.
+- Roles: **admin** (everything), **team** (ticks tasks for assigned clients), **client** (sees only their brand, read only).
+- Data: Postgres (`DATABASE_URL`). Tables are created automatically (`db/schema.sql`).
+- First start: `scripts/bootstrap.mjs` imports `seed/*.enc` (needs `SEED_KEY`) and prints an admin sign-in link for `ADMIN_EMAIL` in the deployment logs until that admin signs in once.
+- Manual: `npm run invite -- email "Name" admin` prints a new sign-in link.

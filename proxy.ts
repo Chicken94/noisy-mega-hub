@@ -1,19 +1,14 @@
 import { NextResponse, type NextRequest } from "next/server";
 
-// Protects /dashboard with a username and password stored in Replit Secrets.
-// Temporary until proper sign-in (Milestone 3). If the secrets are missing, access is denied.
+// Private areas need a session cookie. The page itself then checks the session in the database.
 export function proxy(req: NextRequest) {
-  const user = process.env.DASHBOARD_USER;
-  const pass = process.env.DASHBOARD_PASSWORD;
-  const header = req.headers.get("authorization") ?? "";
-  if (user && pass && header.startsWith("Basic ")) {
-    const [u, p] = atob(header.slice(6)).split(":");
-    if (u === user && p === pass) return NextResponse.next();
+  if (!req.cookies.get("nh_session")?.value) {
+    const url = req.nextUrl.clone();
+    url.pathname = "/login";
+    url.search = "";
+    return NextResponse.redirect(url);
   }
-  return new NextResponse("Sign in required", {
-    status: 401,
-    headers: { "WWW-Authenticate": 'Basic realm="Noisy Mega Hub"' },
-  });
+  return NextResponse.next();
 }
 
-export const config = { matcher: ["/dashboard/:path*"] };
+export const config = { matcher: ["/clients/:path*", "/admin/:path*", "/dashboard/:path*", "/api/asset/:path*"] };
