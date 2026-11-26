@@ -28,3 +28,7 @@ Ask Claude for a change → Claude pushes to `main` → in Replit, pull the late
 - Data: Postgres (`DATABASE_URL`). Tables are created automatically (`db/schema.sql`).
 - First start: `scripts/bootstrap.mjs` imports `seed/*.enc` (needs `SEED_KEY`) and prints an admin sign-in link for `ADMIN_EMAIL` in the deployment logs until that admin signs in once.
 - Manual: `npm run invite -- email "Name" admin` prints a new sign-in link.
+
+## Email room (noisystudio.com.au/email)
+- Admin only. After the site's admin sign-in it forwards to Daniel's private Claude page (which also needs his Claude sign-in).
+- Set the address in **Replit → Secrets** as `EMAIL_HUB_URL`. Never put it or any email content in this repo (it's public).
